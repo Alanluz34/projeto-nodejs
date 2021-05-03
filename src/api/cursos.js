@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { curso } = require('../models')
 const CursoService = require('../services/cursos')
+const { body, check, validationResult } = require('express-validator');
 
 const cursoService = new CursoService(curso)
 
@@ -11,13 +12,23 @@ router.get('/', async (req, res) => {
     res.status(200).json(cursos)
 })
 
-router.post('/', async (req, res) => {
+router.post('/',
+  body('nome').not().isEmpty().trim().escape(),
+  check('ch')
+    .not().isEmpty()
+    .matches(/\d/)
+    .withMessage('Deve ser um numero válido.'), 
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const { nome, ch } = req.body
     try{
     await cursoService.adicionar({ nome, ch })
     res.status(201).send('Curso adicionado com sucesso')
     } catch(erro){
-      res.status(400).send('Não foi possivel adicionar o curso!')
+      res.status(400).send(erro.message)
     }
 })
 

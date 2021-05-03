@@ -10,10 +10,18 @@ class CursoService {
 
     async adicionar(cursoDTO) {
         // verifique se já existe curso com o mesmo nome
+        const curso = await this.curso.findOne({
+            where: {
+                nome: cursoDTO.nome
+            }
+        })
+        if(curso != null){
+            throw new Error('Já existe um curso cadastrado com esse nome!')
+        }
         try{
         await this.curso.create(cursoDTO)
         }catch(erro){
-            console.erro(erro.message)
+            console.error(erro.message)
             throw erro
         }
     }
