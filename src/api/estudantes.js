@@ -6,9 +6,9 @@ const { body, check, validationResult } = require('express-validator');
 
 const estudanteService = new EstudanteService(estudante)
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   const estudantes = await estudanteService.get()
-  res.status(2000).json(estudantes)
+    res.status(200).json(estudantes)
 })
 
 router.post('/', async (req, res) => {
