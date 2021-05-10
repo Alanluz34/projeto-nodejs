@@ -2,12 +2,17 @@ const estudante = (sequelize, DataTypes) => {
     const Estudante = sequelize.define('Estudante', {
       nome: {
         type: DataTypes.STRING,
-        unique: true,
-        allowNull: false 
+        allowNull : false 
       },
-      ch: {
-        type: DataTypes.INTEGER
-      }
+      matricula: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false
+      }  
     }, {
       tableName: 'estudante'
     })

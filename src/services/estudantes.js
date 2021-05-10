@@ -12,11 +12,11 @@ class EstudanteService {
         // verifique se já existe o estudante com o mesmo nome
         const estudante = await this.estudante.findOne({
             where: {
-                nome: estudanteDTO.nome
+                email: estudanteDTO.email
             }
         })
         if(estudante != null){
-            throw new Error('Já existe um estudante cadastrado com esse nome!')
+            throw new Error('Já existe um estudante cadastrado com esse email!')
         }
         try{
         await this.estudante.create(estudanteDTO)
