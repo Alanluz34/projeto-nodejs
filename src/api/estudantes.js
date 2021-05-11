@@ -13,12 +13,6 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const { nome, matricula, email } = req.body
-  console.log(nome, matricula, email)  
-async (req, res) => {
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() })
-  const { nome, matricula, email } = req.body
   try {
   await estudanteService.adicionar({ nome, matricula, email })
   res.status(201).json({ message: 'Estudante adicionado com sucesso!' })
@@ -26,6 +20,6 @@ async (req, res) => {
     console.log('erro.message', erro.message)
     res.status(400).send({ message: erro.message })
     }
-}}})
+})
 
 module.exports = router
