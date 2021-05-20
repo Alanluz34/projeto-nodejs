@@ -5,7 +5,7 @@ class EstudanteService {
 
     async get() {
         const estudantes = await this.estudante.findAll({
-            attributes: ['id', 'nome', 'email', 'matricula']
+            attributes: ['id', 'nome', 'matricula', 'email']
           })
         return estudantes
     }
